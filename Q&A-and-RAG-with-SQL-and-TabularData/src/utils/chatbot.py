@@ -42,6 +42,7 @@ class ChatBot:
             """
             APPCFG = LoadConfig(llm_model, llm_temperature)
             if app_functionality == "Chat":
+                print("In Chatbot")
                 # If we want to use langchain agents for Q&A with our SQL DBs that were created from CSV/XLSX files.
                 if chat_type == "Q&A with stored SQL-DB" or chat_type == "Q&A with Uploaded CSV/XLSX SQL-DB" or chat_type == "Q&A with stored CSV/XLSX SQL-DB":
                     if chat_type == "Q&A with stored SQL-DB":

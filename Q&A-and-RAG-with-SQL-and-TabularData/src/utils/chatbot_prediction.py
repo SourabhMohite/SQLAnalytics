@@ -23,7 +23,7 @@ class ChatBotPrediction:
     and use embeddings for Retrieval-Augmented Generation (RAG) with ChromaDB.
     """
     @staticmethod
-    def respond(chatbot: List, message: str, chat_type: str, app_functionality: str) -> Tuple:
+    def respond(chatbot: List, message: str, chat_type: str, app_functionality: str, llm_model:str, llm_temperature:float, sql_mode:str) -> Tuple:
         """
         Respond to a message based on the given chat and application functionality types.
 
@@ -40,6 +40,7 @@ class ChatBotPrediction:
                                              Currently, the function primarily updates the chatbot conversation list.
         """
         if app_functionality == "Chat":
+            print("In Chatbot Prediction")
             # If we want to use langchain agents for Q&A with our SQL DBs that was created from .sql files.
             if chat_type == "Q&A with stored SQL-DB":
                 # directories

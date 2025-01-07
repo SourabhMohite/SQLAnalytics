@@ -2,6 +2,7 @@ import gradio as gr
 from utils.upload_file import UploadFile
 from utils.chatbot import ChatBot
 from utils.chatbot_prediction import ChatBotPrediction
+from utils.chatbotclass import ChatBotClass
 from utils.ui_settings import UISettings
 
 theme = gr.themes.Ocean(primary_hue="indigo", secondary_hue="green", neutral_hue="slate",).set(
@@ -50,7 +51,7 @@ with gr.Blocks(theme=theme) as demo:
                         "📁 Upload CSV or XLSX files", file_types=['.csv'], file_count="multiple")
                     
                     sql_mode = gr.Radio(
-                        choices=["SQL Only", "SQL Analytics"], 
+                        choices=["SQL Only", "SQL Analytics", "Forecasting"], 
                         value = "SQL Only",
                         label="Mode", 
                         info="Choose Your Query Mode", 
@@ -112,8 +113,10 @@ with gr.Blocks(theme=theme) as demo:
             ##############
             file_msg = upload_btn.upload(fn=UploadFile.run_pipeline, inputs=[
                 upload_btn, chatbot, app_functionality], outputs=[input_txt, chatbot], queue=False)
+            
+            
 
-            txt_msg = input_txt.submit(fn=ChatBot.respond,
+            txt_msg = input_txt.submit(fn=ChatBotClass.respond,
                                        inputs=[chatbot, input_txt,
                                                chat_type, app_functionality, llm_model, llm_temperature, sql_mode],
                                        outputs=[input_txt,
@@ -121,14 +124,14 @@ with gr.Blocks(theme=theme) as demo:
                                        queue=False).then(lambda: gr.Textbox(interactive=True),
                                                          None, [input_txt], queue=False)
 
-            txt_msg = text_submit_btn.click(fn=ChatBot.respond,
+            txt_msg = text_submit_btn.click(fn=ChatBotClass.respond,
                                             inputs=[chatbot, input_txt,
                                                     chat_type, app_functionality, llm_model, llm_temperature, sql_mode],
                                             outputs=[input_txt,
                                                      chatbot],
                                             queue=False).then(lambda: gr.Textbox(interactive=True),
                                                               None, [input_txt], queue=False)
-            
+    """     
     ###########################################################################################################################################        
     ''' Forecating Engine '''
     ########################################################################################################################################### 
@@ -241,6 +244,6 @@ with gr.Blocks(theme=theme) as demo:
                                             queue=False).then(lambda: gr.Textbox(interactive=True),
                                                               None, [input_txt], queue=False)
 
-    
+    """
 if __name__ == "__main__":
     demo.launch()
