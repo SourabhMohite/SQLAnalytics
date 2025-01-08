@@ -171,11 +171,20 @@ class ChatBot:
                             print(f"Error in python code execution:{e}")
 
                     else:
-                        print("#"*100)
+                        print("+*"*100)
                         # from langchain.chains import create_sql_query_chain
                         chain = create_sql_query_chain(APPCFG.langchain_llm, db)
                         response = chain.invoke({"question": message})
-                        print(response)
+                        print("Before:-",response)
+                        if llm_model == "llama3":
+                            if 'sqlquery' in response.lower():
+                                response = response.split("SQLQuery:", 1)[1].strip()
+                            else:
+                                chatbot.append(
+                                (message, response))
+
+                                return "", chatbot
+                        print("After:-",response)
 
                         import sqlite3  
                         connection = sqlite3.connect(db_path)  
@@ -210,9 +219,8 @@ class ChatBot:
                         # Combine header, separator, and rows
                         table = f"{header_row}\n{separator}\n" + "\n".join(rows)
                         
-                        response=table
+                        response = table
                     
-
                 chatbot.append(
                 (message, response))
 
@@ -224,5 +232,5 @@ class ChatBot:
             print("Error:", error)
             chatbot.append(
                 (message, f"Error:{error}"))
-            return "", chatbot, None
+            return "", chatbot
         

@@ -24,13 +24,13 @@ with gr.Blocks(theme=theme) as demo:
 #with gr.Blocks(gr.themes.Ocean(primary_hue="indigo", secondary_hue="green", neutral_hue="slate",)) as demo:
     with gr.Tabs():
         with gr.TabItem("Q&A-with-SQL-and-TabularData"):
-            gr.Markdown("<h1 style='color: #FF6347;'>SQL Analytics BOT</h1>")
+            gr.Markdown("<h1 style='color: #FF69B4;'>Asurion SQL Analytics CHATBOT</h1>")
             with gr.Row():
                 # Left column for the radio button
-                with gr.Column(scale=2, min_width=150, elem_id="left_column"):
+                with gr.Column(scale=2, min_width=350, elem_id="left_column"):
                     llm_model = gr.Radio(
-                        choices=["gpt-35-16k", "gpt-4"], 
-                        value = "gpt-35-16k",
+                        choices=["llama3","gpt-35-16k", "gpt-4"], 
+                        value = "llama3",
                         label="LLM Models", 
                         info="Choose your LLM Model", 
                         interactive=True
