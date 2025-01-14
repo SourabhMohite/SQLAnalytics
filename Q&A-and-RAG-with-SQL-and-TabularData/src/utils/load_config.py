@@ -72,6 +72,12 @@ class LoadConfig:
                 temperature=llm_temperature
                 # timeout = 60
                 )
+            self.client = AzureOpenAI(
+                                    api_version=os.getenv("OPENAI_API_VERSION"),
+                                    azure_endpoint=os.getenv("OPENAI_API_BASE"),
+                                    api_key=os.getenv("OPENAI_API_KEY"),
+                                    azure_deployment=os.getenv("GET_DEPLOYMENT_NAME")
+                                )
         elif llm_model == 'llama3':
             self.langchain_llm = Ollama(model="llama3")
     
