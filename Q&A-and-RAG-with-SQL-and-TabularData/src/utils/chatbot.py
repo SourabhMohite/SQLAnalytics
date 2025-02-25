@@ -82,7 +82,7 @@ class ChatBot:
                         db_port = 5439
                         db_name = 'acyanenterprise'
                         db_user = 'acyanatlasrouser'
-                        db_password = 'AcyanAtlasROUser1'
+                        db_password = ''
 
                         engine = create_engine(
                             f"redshift+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
