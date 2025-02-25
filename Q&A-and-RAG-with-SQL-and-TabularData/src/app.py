@@ -44,7 +44,8 @@ with gr.Blocks(theme=theme) as demo:
                     label="Chat type", choices=[
                         "Q&A with stored SQL-DB",
                         # "Q&A with stored CSV/XLSX SQL-DB",
-                        "Q&A with Uploaded CSV/XLSX SQL-DB"
+                        "Q&A with Uploaded CSV/XLSX SQL-DB",
+                        "Acyan Redshift"
                     ], value="Q&A with stored SQL-DB",interactive=True)
 
                     upload_btn = gr.UploadButton(
@@ -66,7 +67,7 @@ with gr.Blocks(theme=theme) as demo:
                     # )
                 
                 # Right column for the main content
-                with gr.Column(scale=8, min_width=500, elem_id="right_column"):
+                with gr.Column(scale=8, min_width=900, elem_id="right_column"):
                     ##############
                     # First ROW:
                     ##############

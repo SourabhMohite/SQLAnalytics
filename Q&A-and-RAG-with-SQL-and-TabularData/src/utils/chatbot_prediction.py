@@ -186,10 +186,11 @@ class ChatBotPrediction:
 
                                 Please analyze the data and provide insights, including:
                                 - if question is not related to forecast give sql answer straight a way
-                                - More Accurate Predictions for the future based on historical data(Strictly, Don't give random text as predicted/forecasted value)
+                                - More Accurate Predictions for the future based on historical data(Strictly, Don't give random text,symbol or blank/null as predicted/forecasted value)
                                 - Actionable conclusions to answer the user's original question
                                 - strictly If there is any tabular output display it as Table in proper format:.
                                 - Give the forecasted output in tabular form.
+                                - Strictly, Don't give random text,symbol or blank/null as predicted/forecasted value.
                                 """
 
                     prompt = PromptTemplate.from_template(template)

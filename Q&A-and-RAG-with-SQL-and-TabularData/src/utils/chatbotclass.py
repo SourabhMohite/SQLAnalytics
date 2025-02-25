@@ -3,6 +3,7 @@ from utils.chatbot_prediction import ChatBotPrediction
 from utils.TextAnalyzer import TextAnalyzer
 from typing import List, Tuple
 
+''' This class will call another class based on sql_mode. '''
 class ChatBotClass:
     @staticmethod
     def respond(chatbot: List, message: str, chat_type: str, app_functionality: str, llm_model:str, llm_temperature:float, sql_mode:str) -> Tuple:
