@@ -11,6 +11,8 @@ from operator import itemgetter
 from sqlalchemy import create_engine
 from langchain_community.agent_toolkits import create_sql_agent
 import langchain
+import psycopg2, redshift_connector
+from sqlalchemy import create_engine
 langchain.debug = True
 
 # APPCFG = LoadConfig()
@@ -44,7 +46,7 @@ class ChatBot:
             if app_functionality == "Chat":
                 print("In Chatbot")
                 # If we want to use langchain agents for Q&A with our SQL DBs that were created from CSV/XLSX files.
-                if chat_type == "Q&A with stored SQL-DB" or chat_type == "Q&A with Uploaded CSV/XLSX SQL-DB" or chat_type == "Q&A with stored CSV/XLSX SQL-DB":
+                if chat_type == "Q&A with stored SQL-DB" or chat_type == "Q&A with Uploaded CSV/XLSX SQL-DB" or chat_type == "Q&A with stored CSV/XLSX SQL-DB" or chat_type == "Acyan Redshift":
                     if chat_type == "Q&A with stored SQL-DB":
                         if os.path.exists(APPCFG.sqldb_directory):
                             db_path = APPCFG.sqldb_directory
@@ -75,6 +77,19 @@ class ChatBot:
                             chatbot.append(
                                 (message, f"SQL DB from the stored csv/xlsx files does not exist. Please first execute `src/prepare_csv_xlsx_sqlitedb.py` module."))
                             return "", chatbot, None
+                    elif chat_type == "Acyan Redshift":
+                        db_host = 'acyanenterprisedw-qadev.c1wp5jzwuvls.ap-northeast-1.redshift.amazonaws.com'
+                        db_port = 5439
+                        db_name = 'acyanenterprise'
+                        db_user = 'acyanatlasrouser'
+                        db_password = 'AcyanAtlasROUser1'
+
+                        engine = create_engine(
+                            f"redshift+psycopg2://{db_user}:{db_password}@{db_host}:{db_port}/{db_name}"
+                        )
+
+                        # Creating a SQLDatabase object with the Redshift engine
+                        db = SQLDatabase(engine=engine)
                     
                     print(db.dialect)
                     print(db.get_usable_table_names())
@@ -191,6 +206,7 @@ class ChatBot:
                         cursor = connection.cursor()
 
                         # Execute the query
+                        print("################ response #################",response)
                         cursor.execute(response)
                         columns = [description[0] for description in cursor.description]
                         result = cursor.fetchall()

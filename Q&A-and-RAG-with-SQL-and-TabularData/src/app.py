@@ -23,7 +23,7 @@ theme = gr.themes.Ocean(primary_hue="indigo", secondary_hue="green", neutral_hue
 with gr.Blocks(theme=theme) as demo:
 #with gr.Blocks(gr.themes.Ocean(primary_hue="indigo", secondary_hue="green", neutral_hue="slate",)) as demo:
     with gr.Tabs():
-        with gr.TabItem("Q&A-with-SQL-and-TabularData"):
+        with gr.TabItem("Asurion SQL Analytics CHATBOT"):
             gr.Markdown("<h1 style='color: #FF69B4;'>Asurion SQL Analytics CHATBOT</h1>")
             with gr.Row():
                 # Left column for the radio button
@@ -43,15 +43,16 @@ with gr.Blocks(theme=theme) as demo:
                     chat_type = gr.Dropdown(
                     label="Chat type", choices=[
                         "Q&A with stored SQL-DB",
-                        "Q&A with stored CSV/XLSX SQL-DB",
-                        "Q&A with Uploaded CSV/XLSX SQL-DB"
+                        # "Q&A with stored CSV/XLSX SQL-DB",
+                        "Q&A with Uploaded CSV/XLSX SQL-DB",
+                        "Acyan Redshift"
                     ], value="Q&A with stored SQL-DB",interactive=True)
 
                     upload_btn = gr.UploadButton(
                         "📁 Upload CSV or XLSX files", file_types=['.csv'], file_count="multiple")
                     
                     sql_mode = gr.Radio(
-                        choices=["SQL Only", "SQL Analytics", "Forecasting"], 
+                        choices=["SQL Only", "SQL Analytics", "Forecasting", "Text Analyzer"], 
                         value = "SQL Only",
                         label="Mode", 
                         info="Choose Your Query Mode", 
@@ -66,7 +67,7 @@ with gr.Blocks(theme=theme) as demo:
                     # )
                 
                 # Right column for the main content
-                with gr.Column(scale=8, min_width=500, elem_id="right_column"):
+                with gr.Column(scale=8, min_width=900, elem_id="right_column"):
                     ##############
                     # First ROW:
                     ##############
